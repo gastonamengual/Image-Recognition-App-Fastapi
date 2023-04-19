@@ -3,11 +3,13 @@ import io
 from fastapi import UploadFile, Response
 import pytest
 from server.api.api import detect_objects
+import os
 
 
 @pytest.fixture
 def sample_img_url() -> str:
-    return "/Users/gaston/Documents/repos/ImageRecognitionApp/Image-Recognition-App-Fastapi/tests/api/sample_images/computer.jpg"
+    current_dir = os.getcwd()
+    return f"{current_dir}/tests/api/sample_images/computer.jpg"
 
 
 def test_detect_objects(sample_img_url: str):
