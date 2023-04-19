@@ -1,1 +1,1 @@
-# Image-Recognition-App-Fastapi
+# Image-Recognition-App
