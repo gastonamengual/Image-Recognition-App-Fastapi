@@ -7,6 +7,7 @@ router = APIRouter()
 
 ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
 
+
 @router.post("/detect_objects/")
 async def detect_objects(image: UploadFile = File()):
     image_file = await image.read()
