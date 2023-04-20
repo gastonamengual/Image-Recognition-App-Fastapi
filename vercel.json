@@ -1,0 +1,15 @@
+{
+    "name": "image-recognition-api",
+    "builds": [
+        {
+            "src": "server/main.py",
+            "use": "@now/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "server/main.py"
+        }
+    ]
+}
