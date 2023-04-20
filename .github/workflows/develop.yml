@@ -1,4 +1,4 @@
-name: Python CI
+name: Develop CI
 
 on:
   pull_request:
@@ -19,13 +19,10 @@ jobs:
         python-version: 3.9
 
     - name: Install pipenv
-      run: |
-        pip install pipenv
+      run: pip install pipenv
 
     - name: Install dependencies
-      run: |
-        pipenv install --dev
+      run: pipenv install --dev
 
     - name: Test with pytest
-      run: |
-        pipenv run pytest tests/
+      run: pipenv run pytest tests/
