@@ -4,15 +4,16 @@ import io
 import cv2
 import matplotlib
 import matplotlib.pyplot as plt
+from numpy.typing import ArrayLike
 
 matplotlib.use("Agg")  # Solves some error
 
 
 class ModelConfig:
-    config_file_path: str = "server/models/object_detection/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"
-    frozen_model_path: str = (
-        "server/models/object_detection/frozen_inference_graph.pb"
+    config_file_path: str = (
+        "server/models/object_detection/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"
     )
+    frozen_model_path: str = "server/models/object_detection/frozen_inference_graph.pb"
     labels_path: str = "server/models/object_detection/coco.names"
     output_filename: str = "prediction.png"
 
@@ -24,7 +25,7 @@ class Model:
     def __init__(self, config: ModelConfig):
         self.config = config
 
-    def detect_object(self, data) -> io.BytesIO:
+    def detect_object(self, data: ArrayLike) -> io.BytesIO:
         img = cv2.imdecode(buf=data, flags=1)
 
         model = cv2.dnn_DetectionModel(
@@ -48,15 +49,15 @@ class Model:
         for ClassInd, conf, boxes in zip(
             ClassIndex.flatten(), confidence.flatten(), bbox
         ):
-            cv2.rectangle(img, boxes, (255, 0, 0), 6)
+            cv2.rectangle(img, boxes, (196, 152, 63), 6)
             cv2.putText(
                 img=img,
                 text=classLabels[ClassInd],
                 org=(boxes[0] + 10, boxes[1] + 40),
                 fontFace=cv2.FONT_HERSHEY_PLAIN,
-                fontScale=12,
-                color=(0, 0, 255),
-                thickness=8,
+                fontScale=3,
+                color=(121, 64, 190),
+                thickness=3,
             )
 
         plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))

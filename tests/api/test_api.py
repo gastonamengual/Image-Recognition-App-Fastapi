@@ -5,7 +5,6 @@ import pytest
 from server.api.api import detect_objects
 import os
 
-
 @pytest.fixture
 def sample_img_url() -> str:
     current_dir = os.getcwd()
