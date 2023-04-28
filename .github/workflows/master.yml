@@ -3,7 +3,11 @@ name: Master CI/CD
 on:
   push:
     branches:
-      - master  
+      - master
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize]
 
 jobs:
   build:
@@ -27,8 +31,9 @@ jobs:
       run: pipenv run pytest tests/
 
   deploy:
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -38,12 +43,7 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Build and deploy
-        run: |
-          npm run build
-          npx gh-pages -d dist
+        run: npx gh-pages -d client
 
 
