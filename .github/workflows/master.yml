@@ -38,12 +38,7 @@ jobs:
         with:
           node-version: "14.x"
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Build and deploy
-        run: |
-          npm run build
-          npx gh-pages -d dist
+        run: npx gh-pages -d client
 
 
