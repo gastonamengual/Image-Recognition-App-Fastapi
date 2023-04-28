@@ -3,7 +3,11 @@ name: Master CI/CD
 on:
   push:
     branches:
-      - master  
+      - master
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize]
 
 jobs:
   build:
@@ -26,6 +30,7 @@ jobs:
     - name: Test with pytest
       run: pipenv run pytest tests/
 
+  if: ${{ github.event_name != 'pull_request' }}
   deploy:
     needs: test
     runs-on: ubuntu-latest
