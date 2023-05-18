@@ -1,9 +1,12 @@
 import asyncio
 import io
-from fastapi import UploadFile, Response
-import pytest
-from server.api.api import detect_objects
 import os
+
+import pytest
+from fastapi import Response, UploadFile
+
+from server.api.api import detect_objects
+
 
 @pytest.fixture
 def sample_img_url() -> str:
