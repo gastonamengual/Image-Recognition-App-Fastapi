@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="7.813" timestamp="2023-05-18T19:19:58.515746" hostname="Gastons-MacBook-Air.local"><testcase classname="" name="" time="0.000"><error message="collection failure">.venv/lib/python3.9/site-packages/_pytest/runner.py:341: in from_call
+    result: Optional[TResult] = func()
+.venv/lib/python3.9/site-packages/_pytest/runner.py:372: in &lt;lambda&gt;
+    call = CallInfo.from_call(lambda: list(collector.collect()), "collect")
+.venv/lib/python3.9/site-packages/_pytest/main.py:719: in collect
+    for direntry in visit(str(argpath), self._recurse):
+.venv/lib/python3.9/site-packages/_pytest/pathlib.py:698: in visit
+    yield from visit(entry.path, recurse)
+.venv/lib/python3.9/site-packages/_pytest/pathlib.py:698: in visit
+    yield from visit(entry.path, recurse)
+.venv/lib/python3.9/site-packages/_pytest/pathlib.py:698: in visit
+    yield from visit(entry.path, recurse)
+.venv/lib/python3.9/site-packages/_pytest/pathlib.py:698: in visit
+    yield from visit(entry.path, recurse)
+.venv/lib/python3.9/site-packages/_pytest/pathlib.py:698: in visit
+    yield from visit(entry.path, recurse)
+.venv/lib/python3.9/site-packages/_pytest/pathlib.py:683: in visit
+    for entry in os.scandir(path):
+E   PermissionError: [Errno 13] Permission denied: '/Library/Application Support/Apple/AssetCache/Data'</error></testcase></testsuite></testsuites>
