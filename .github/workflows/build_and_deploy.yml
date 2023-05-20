@@ -12,6 +12,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      pull-requests: write
+
     steps:
     - uses: actions/checkout@v2
 
@@ -22,7 +27,6 @@ jobs:
 
     - name: Install pipenv
       run: pip install pipenv
-
 
     - name: Linter and style check
       run: |
@@ -41,8 +45,6 @@ jobs:
       with:
         files: |
           test-results/**/*.xml
-          test-results/**/*.trx
-          test-results/**/*.json
 
   deploy:
     needs: build
