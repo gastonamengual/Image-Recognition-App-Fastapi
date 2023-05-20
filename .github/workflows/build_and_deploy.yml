@@ -12,22 +12,39 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+      pull-requests: write
+
     steps:
     - uses: actions/checkout@v2
 
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
-      with: 
+      with:
         python-version: 3.9
 
     - name: Install pipenv
       run: pip install pipenv
 
+    - name: Linter and style check
+      run: |
+        pip install pre-commit==3.3.1
+        pre-commit run --all-file
+
     - name: Install dependencies
       run: pipenv install --dev
 
     - name: Test with pytest
-      run: pipenv run pytest tests/
+      run: pipenv run test
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        files: |
+          pytest-report.xml
 
   deploy:
     needs: build
@@ -35,7 +52,7 @@ jobs:
     if: ${{ github.event_name != 'pull_request' }}
 
     permissions:
-      pages: write 
+      pages: write
       id-token: write
 
     environment:
@@ -61,6 +78,4 @@ jobs:
           path: ${{ runner.temp }}/artifact.tar
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
-
-
+        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action

@@ -18,9 +18,14 @@ python-multipart = "*"
 
 [dev-packages]
 pytest = "==7.3.1"
+pytest-cov = "==3.0.0"
 flake8 = "==6.0.0"
 black = "==23.3.0"
 httpx = "*"
+pre-commit = "3.3.1"
 
 [requires]
 python_version = "3.9"
+
+[scripts]
+test = "pytest ./tests -rA --doctest-modules --junitxml=pytest-report.xml --cov=. --cov-report=html --cov-report term-missing"
