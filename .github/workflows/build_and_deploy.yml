@@ -52,6 +52,7 @@ jobs:
     if: ${{ github.event_name != 'pull_request' }}
 
     permissions:
+      contents: read
       pages: write
       id-token: write
 
@@ -60,22 +61,14 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Archive artifact
-        shell: sh
-        run: |
-          tar \
-            --dereference --hard-dereference \
-            --directory client \
-            -cvf "$RUNNER_TEMP/artifact.tar" \
-            --exclude=.git \
-            --exclude=.github \
-            .
-        env:
-          INPUT_PATH: ${{ inputs.path }}
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v1.0.8
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          path: ${{ runner.temp }}/artifact.tar
+          path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+        uses: actions/deploy-pages@v2
