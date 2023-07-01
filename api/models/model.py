@@ -11,10 +11,10 @@ matplotlib.use("Agg")  # Solves some error
 
 class ModelConfig:
     config_file_path: str = (
-        "server/models/object_detection/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"
+        "api/models/object_detection/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"
     )
-    frozen_model_path: str = "server/models/object_detection/frozen_inference_graph.pb"
-    labels_path: str = "server/models/object_detection/coco.names"
+    frozen_model_path: str = "api/models/object_detection/frozen_inference_graph.pb"
+    labels_path: str = "api/models/object_detection/coco.names"
     output_filename: str = "prediction.png"
 
 
