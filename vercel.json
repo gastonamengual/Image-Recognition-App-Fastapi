@@ -2,14 +2,14 @@
     "name": "image-recognition-api",
     "builds": [
         {
-            "src": "api/main.py",
+            "src": "server/main.py",
             "use": "@now/python"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "api/main.py"
+            "dest": "server/main.py"
         },
         {
             "src": "/detect_object",
