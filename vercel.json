@@ -3,17 +3,7 @@
     "builds": [
         {
             "src": "server/main.py",
-            "use": "@now/python"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "server/main.py"
-        },
-        {
-            "src": "/detect_object",
-            "dest": "api/api.py"
+            "use": "@now/python-serverless"
         }
     ]
 }
