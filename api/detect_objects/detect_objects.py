@@ -2,7 +2,7 @@ import numpy as np
 from fastapi import APIRouter, File, Response, UploadFile
 from numpy.typing import ArrayLike
 
-from server.models.model import Model, ModelConfig
+from api.models.model import Model, ModelConfig
 
 router = APIRouter()
 
