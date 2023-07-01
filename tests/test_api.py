@@ -5,13 +5,13 @@ import os
 import pytest
 from fastapi import Response, UploadFile
 
-from server.api import detect_objects
+from server.routes import detect_objects
 
 
 @pytest.fixture
 def sample_img_url() -> str:
     current_dir = os.getcwd()
-    return f"{current_dir}/tests/api/sample_images/computer.jpg"
+    return f"{current_dir}/tests/sample_images/computer.jpg"
 
 
 def test_detect_objects(sample_img_url: str):
