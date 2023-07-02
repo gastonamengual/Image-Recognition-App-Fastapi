@@ -2,9 +2,9 @@ import numpy as np
 from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from numpy.typing import ArrayLike
+from object_detection_model.model import Model, ModelConfig
 
 from api.api import router
-from api.models import Model, ModelConfig
 
 app = FastAPI()
 app.include_router(router)
