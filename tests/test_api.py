@@ -5,7 +5,7 @@ import os
 import pytest
 from fastapi import Response, UploadFile
 
-from server.routes import detect_objects
+from api.api import detect_objects
 
 
 @pytest.fixture
