@@ -1,19 +1,14 @@
 {
-    "name": "image-recognition-api",
-    "builds": [
-        {
-            "src": "api/main.py",
-            "use": "@now/python"
-        }
-    ],
+    "builds": [{ "src": "api.py", "use": "@now/python" }],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "api/main.py"
-        },
-        {
-            "src": "/detect_object",
-            "dest": "api/api.py"
+        { "src": "/(.*)",
+          "dest": "api.py",
+          "headers": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST",
+            "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+            }
         }
     ]
 }
