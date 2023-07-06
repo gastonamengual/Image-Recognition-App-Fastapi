@@ -35,6 +35,8 @@ jobs:
 
     - name: Install dependencies
       run: pipenv install --dev
+      env:
+        PIPENV_VENV_IN_PROJECT: 1
 
     - name: Test with pytest
       run: pipenv run test
@@ -49,7 +51,8 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'pull_request' }}
+
+    if: ${{ github.ref == 'refs/heads/master' }}
 
     permissions:
       contents: read
