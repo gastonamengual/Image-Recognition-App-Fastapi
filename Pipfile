@@ -8,7 +8,7 @@ fastapi = "==0.95.1"
 uvicorn = "==0.21.1"
 requests = "==2.28.2"
 jupyter = "==1.0.0"
-object-detection-model = "0.0.1"
+object-detection-model = "==0.0.*"
 
 [dev-packages]
 pytest = "==7.3.1"
@@ -22,4 +22,8 @@ pre-commit = "3.3.1"
 python_version = "3.9"
 
 [scripts]
+hook = "pre-commit install"
+format = "pre-commit run --all-files"
 test = "pytest ./tests -rA --doctest-modules --junitxml=pytest-report.xml --cov=. --cov-report=html --cov-report term-missing"
+build = "bash -c 'python setup.py clean --all && python setup.py bdist_wheel'"
+publish = "twine upload dist/*"

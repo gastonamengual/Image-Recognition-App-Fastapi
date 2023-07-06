@@ -1,13 +1,19 @@
+import importlib.resources
+
 import numpy as np
 from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from numpy.typing import ArrayLike
-from object_detection_model.model import Model, ModelConfig
-
-from api.api import router
+from object_detection_model import model_files as model_files
+from object_detection_model.model import (
+    CONFIG_FILE_NAME,
+    FROZEN_MODEL_NAME,
+    LABELS_NAME,
+    Model,
+    ModelConfig,
+)
 
 app = FastAPI()
-app.include_router(router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -34,12 +40,29 @@ async def detect_objects(image: UploadFile = File()):
 
     processed_image = process_image(image_file)
 
-    model = Model(config=ModelConfig())
+    model_config = get_model_config()
+    model = Model(model_config)
     img_bytes = model.detect_object(processed_image)
 
     response = Response(content=img_bytes.getvalue(), media_type="image/png")
 
     return response
+
+
+def get_model_config() -> ModelConfig:
+    config_file_path = str(
+        next(importlib.resources.path(model_files, CONFIG_FILE_NAME).gen)
+    )
+    frozen_model_path = str(
+        next(importlib.resources.path(model_files, FROZEN_MODEL_NAME).gen)
+    )
+    labels_path = str(next(importlib.resources.path(model_files, LABELS_NAME).gen))
+
+    return ModelConfig(
+        config_file_path=config_file_path,
+        frozen_model_path=frozen_model_path,
+        labels_path=labels_path,
+    )
 
 
 def validate_image_filename(image_filename: str):
