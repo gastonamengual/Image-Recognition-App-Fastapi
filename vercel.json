@@ -1,8 +1,9 @@
 {
-    "builds": [{ "src": "api.py", "use": "@now/python" }],
+    "version": 2,
+    "builds": [{ "src": "api/api.py", "use": "@now/python" }],
     "routes": [
         { "src": "/(.*)",
-          "dest": "api.py",
+          "dest": "api/api.py",
           "headers": {
             "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Origin": "*",
