@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from object_detection_model import model_files as model_files
+
+# from object_detection_model import model_files as model_files
 
 app = FastAPI()
 app.add_middleware(
