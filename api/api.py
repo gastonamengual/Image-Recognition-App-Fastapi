@@ -4,7 +4,7 @@ import json
 import numpy as np
 from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-# from gradio_client import Client
+from gradio_client import Client
 
 app = FastAPI()
 app.add_middleware(
