@@ -3,7 +3,7 @@ import io
 import os
 
 import pytest
-from fastapi import Response, UploadFile
+from fastapi import UploadFile
 
 from api.api import detect_objects
 
@@ -20,6 +20,6 @@ def test_detect_objects(sample_img_url: str):
 
     upload_file = UploadFile(filename="computer.jpg", file=image_bytes)
 
-    img_bytes_response = asyncio.run(detect_objects(upload_file), debug=True)
+    predicted_image = asyncio.run(detect_objects(upload_file), debug=True)
 
-    assert isinstance(img_bytes_response, Response)
+    assert isinstance(predicted_image, list)

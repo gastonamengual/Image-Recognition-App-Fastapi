@@ -1,7 +1,10 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+import io
+import json
 
-# from object_detection_model import model_files as model_files
+import numpy as np
+from fastapi import FastAPI, File, Response, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from gradio_client import Client
 
 app = FastAPI()
 app.add_middleware(
@@ -11,27 +14,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
+
 
 @app.get("/")
 async def root():
     return {"message": "access the /detect_objects endpoint"}
 
 
-# @app.post("/detect_objects/")
-# async def detect_objects(image: UploadFile = File()):
-#     image_file: bytes = await image.read()
+@app.post("/detect_objects/")
+async def detect_objects(image: UploadFile = File()) -> list[int]:
+    image_file: bytes = await image.read()
 
-#     image_filename: str = image.filename
+    if image.filename == "":
+        raise ValueError("No image Selected")
 
-#     validate_image_filename(image_filename)
-#     validate_correct_extension(image_filename)
+    if (
+        "." not in image.filename
+        and image.filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+    ):
+        raise ValueError("Wrong filename format")
 
-#     processed_image = process_image(image_file)
+    image_bytes = io.BytesIO(image_file).read()
+    list_encoded_image = np.frombuffer(image_bytes, dtype=np.uint8).tolist()
 
-#     model_config = get_model_config()
-#     model = Model(model_config)
-#     img_bytes = model.detect_object(processed_image)
+    client = Client("https://gastonamengual-object-detection-app.hf.space/")
+    result = client.predict(
+        json.dumps(list_encoded_image),
+        api_name="/predict",
+    )
 
-#     response = Response(content=img_bytes.getvalue(), media_type="image/png")
-
-#     return response
+    response = Response(content=json.loads(result), media_type="image/png")
+    return response

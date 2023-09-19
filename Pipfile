@@ -7,6 +7,7 @@ name = "pypi"
 fastapi = "==0.95.1"
 uvicorn = "==0.21.1"
 requests = "==2.28.2"
+gradio-client = "*"
 
 [dev-packages]
 pytest = "==7.3.1"
