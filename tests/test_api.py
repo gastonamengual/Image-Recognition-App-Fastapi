@@ -20,6 +20,6 @@ def test_detect_objects(sample_img_url: str):
 
     upload_file = UploadFile(filename="computer.jpg", file=image_bytes)
 
-    img_bytes_response = asyncio.run(detect_objects(upload_file), debug=True)
+    response = asyncio.run(detect_objects(upload_file), debug=True)
 
-    assert isinstance(img_bytes_response, Response)
+    assert isinstance(response, Response)
