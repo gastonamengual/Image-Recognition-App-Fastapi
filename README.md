@@ -20,26 +20,43 @@ The model Python package supports automated CI/CD in GitHub Actions. Building in
 #### FULL TECHNOLOGIES STACK
 
 [API]
+
 FastAPI
+
 Uvicorn
+
 Gradio
 
 [Machine Learning]
+
 Numpy
+
 matplotlib
+
 Pillow
+
 OpenCV
 
 [Services]
+
 GitHub Actions
+
 Vercel
+
 Hugging Face
+
 PyPI
 
 [Testing, formatting and building]
+
 Pytest
+
 Flake8
+
 Black
+
 Pre-commit
+
 setuptools
+
 Twine
