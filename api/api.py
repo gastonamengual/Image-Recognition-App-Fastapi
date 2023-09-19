@@ -44,5 +44,6 @@ async def detect_objects(image: UploadFile = File()) -> list[int]:
         api_name="/predict",
     )
 
-    response = Response(content=json.loads(result), media_type="image/png")
+    bytes_image = bytes(json.loads(result))
+    response = Response(content=bytes_image, media_type="image/png")
     return response
