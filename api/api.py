@@ -23,27 +23,28 @@ async def root():
 
 
 @app.post("/detect_objects")
-async def detect_objects(image: UploadFile = File()) -> list[int]:
-    image_file: bytes = await image.read()
+async def asd():
+    return 1
+    # image_file: bytes = await image.read()
 
-    if image.filename == "":
-        raise ValueError("No image Selected")
+    # if image.filename == "":
+    #     raise ValueError("No image Selected")
 
-    if (
-        "." not in image.filename
-        and image.filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-    ):
-        raise ValueError("Wrong filename format")
+    # if (
+    #     "." not in image.filename
+    #     and image.filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+    # ):
+    #     raise ValueError("Wrong filename format")
 
-    image_bytes = io.BytesIO(image_file).read()
-    list_encoded_image = np.frombuffer(image_bytes, dtype=np.uint8).tolist()
+    # image_bytes = io.BytesIO(image_file).read()
+    # list_encoded_image = np.frombuffer(image_bytes, dtype=np.uint8).tolist()
 
-    client = Client("https://gastonamengual-object-detection-app.hf.space/")
-    result = client.predict(
-        json.dumps(list_encoded_image),
-        api_name="/predict",
-    )
+    # client = Client("https://gastonamengual-object-detection-app.hf.space/")
+    # result = client.predict(
+    #     json.dumps(list_encoded_image),
+    #     api_name="/predict",
+    # )
 
-    bytes_image = bytes(json.loads(result))
-    response = Response(content=bytes_image, media_type="image/png")
-    return response
+    # bytes_image = bytes(json.loads(result))
+    # response = Response(content=bytes_image, media_type="image/png")
+    # return response
