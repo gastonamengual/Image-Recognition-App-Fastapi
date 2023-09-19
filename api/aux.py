@@ -1,1 +1,0 @@
-from object_detection_model import model_files as model_files
