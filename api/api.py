@@ -4,7 +4,7 @@ import json
 import numpy as np
 from fastapi import FastAPI, File, Response, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from gradio_client import Client
+# from gradio_client import Client
 
 app = FastAPI()
 app.add_middleware(
@@ -22,9 +22,8 @@ async def root():
     return {"message": "access the /detect_objects endpoint"}
 
 
-@app.post("/detect_objects/")
-async def detect_objects(image: UploadFile = File()) -> list[int]:
-    return 1
+# @app.post("/detect_objects/")
+# async def detect_objects(image: UploadFile = File()) -> list[int]:
 #     image_file: bytes = await image.read()
 
 #     if image.filename == "":
