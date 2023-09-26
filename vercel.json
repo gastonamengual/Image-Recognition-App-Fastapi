@@ -1,15 +1,15 @@
 {
-    "name": "image-recognition-api",
-    "builds": [
-        {
-            "src": "server/main.py",
-            "use": "@now/python"
-        }
-    ],
+    "version": 2,
+    "builds": [{ "src": "api/api.py", "use": "@vercel/python" }],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "server/main.py"
+        { "src": "/(.*)",
+          "dest": "api/api.py",
+          "headers": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST",
+            "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+            }
         }
     ]
 }
