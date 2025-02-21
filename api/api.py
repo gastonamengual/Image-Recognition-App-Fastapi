@@ -31,7 +31,7 @@ async def detect_objects(image: UploadFile = File()) -> list[int]:
 
     if (
         "." not in image.filename
-        or image.filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+        or image.filename.rsplit(".", 1)[1].lower() not in ALLOWED_EXTENSIONS
     ):
         raise ValueError("Wrong filename format")
 

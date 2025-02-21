@@ -23,3 +23,23 @@ def test_detect_objects(sample_img_url: str):
     response = asyncio.run(detect_objects(upload_file), debug=True)
 
     assert isinstance(response, Response)
+
+def test_detect_objects_incorrect_extension(sample_img_url: str):
+    with open(sample_img_url, "rb") as image_file:
+        image_bytes = io.BytesIO(image_file.read())
+
+    upload_file = UploadFile(filename="computer.pdf", file=image_bytes)
+
+    with pytest.raises(ValueError) as ex:
+        asyncio.run(detect_objects(upload_file), debug=True)
+        assert ex == "Wrong filename format"
+
+def test_detect_objects_no_filename(sample_img_url: str):
+    with open(sample_img_url, "rb") as image_file:
+        image_bytes = io.BytesIO(image_file.read())
+
+    upload_file = UploadFile(filename="", file=image_bytes)
+
+    with pytest.raises(ValueError) as ex:
+        asyncio.run(detect_objects(upload_file), debug=True)
+        assert ex == "No image Selected"
