@@ -9,7 +9,7 @@ submitButton.addEventListener("click", () => {
     const formData = new FormData();
     formData.append("image", image);
 
-    fetch("https://image-recognition-app-fastapi.vercel.app/detect_objects", {
+    fetch("https://image-recognition-app-fastapi.vercel.app/detect_objects", { // http://127.0.0.1:8000/detect_objects
         method: "POST",
         body: formData,
     })
