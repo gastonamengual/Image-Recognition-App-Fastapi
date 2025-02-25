@@ -1,6 +1,6 @@
 import pytest
 
-from app.validations import validate_filename
+from app.validations.validations import validate_filename
 
 
 def test_incorrect_extension():
