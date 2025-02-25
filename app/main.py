@@ -1,10 +1,11 @@
+import base64
 import json
-from typing import TypedDict
 
 import numpy as np
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from gradio_client import Client
+from pydantic import BaseModel
 
 from app.validations.validations import validate_filename
 
@@ -17,7 +18,7 @@ app.add_middleware(
 )
 
 
-class ImageData(TypedDict):
+class ImageData(BaseModel):
     filename: str
     image_bytes: bytes
 
@@ -31,12 +32,11 @@ async def root():
 
 
 @app.post("/detect_objects")
-async def detect_objects(data: ImageData) -> Response:
+async def detect_objects(image_data: ImageData) -> Response:
 
-    filename = data["filename"]
-    image_bytes = data["image_bytes"]
+    image_bytes = base64.b64decode(image_data.image_bytes)
 
-    validate_filename(filename)
+    validate_filename(image_data.filename)
 
     list_encoded_image = np.frombuffer(image_bytes, dtype=np.uint8).tolist()
 
@@ -46,10 +46,9 @@ async def detect_objects(data: ImageData) -> Response:
             json.dumps(list_encoded_image),
             api_name="/predict",
         )
-
         bytes_image = bytes(json.loads(result))
         response = Response(content=bytes_image, media_type="image/png")
         return response
 
     except Exception as ex:
-        raise ValueError(f"M2FastAPI Error: {ex}")
+        raise ValueError(f"API Error: {ex}")
