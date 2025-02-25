@@ -20,7 +20,7 @@ ipykernel = "*"
 pillow = "==11.1.0"
 
 [requires]
-python_version = "3.12"
+python_version = "3.12.9"
 
 [scripts]
 hook = "pre-commit install"
