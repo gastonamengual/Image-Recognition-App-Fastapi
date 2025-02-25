@@ -1,10 +1,12 @@
-import io
 import json
+from typing import TypedDict
 
 import numpy as np
-from fastapi import FastAPI, File, Response, UploadFile
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from gradio_client import Client
+
+from app.validations import validate_filename
 
 app = FastAPI()
 app.add_middleware(
@@ -14,7 +16,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
+
+class ImageData(TypedDict):
+    filename: str
+    image_bytes: bytes
 
 
 @app.get("/")
@@ -23,19 +28,13 @@ async def root():
 
 
 @app.post("/detect_objects")
-async def detect_objects(image: UploadFile = File()) -> list[int]:
-    image_file: bytes = await image.read()
+async def detect_objects(data: ImageData) -> Response:
 
-    if image.filename == "":
-        raise ValueError("No image Selected")
+    filename = data["filename"]
+    image_bytes = data["image_bytes"]
 
-    if (
-        "." not in image.filename
-        or image.filename.rsplit(".", 1)[1].lower() not in ALLOWED_EXTENSIONS
-    ):
-        raise ValueError("Wrong filename format")
+    validate_filename(filename)
 
-    image_bytes = io.BytesIO(image_file).read()
     list_encoded_image = np.frombuffer(image_bytes, dtype=np.uint8).tolist()
 
     client = Client("https://gastonamengual-object-detection-app.hf.space/")
