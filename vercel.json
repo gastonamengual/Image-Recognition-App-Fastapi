@@ -1,9 +1,9 @@
 {
     "version": 2,
-    "builds": [{ "src": "api/api.py", "use": "@vercel/python" }],
+    "builds": [{ "src": "app/main.py", "use": "@vercel/python" }],
     "routes": [
         { "src": "/(.*)",
-          "dest": "api/api.py",
+          "dest": "app/main.py",
           "headers": {
             "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Origin": "*",
