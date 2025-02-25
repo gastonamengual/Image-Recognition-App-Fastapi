@@ -22,9 +22,6 @@ class ImageData(TypedDict):
     image_bytes: bytes
 
 
-MODEL_API_URL = "https://gastonamengual-object-detection-app.hf.space/"
-
-
 @app.get("/")
 async def root():
     return {"message": "access the /detect_objects endpoint"}
@@ -40,15 +37,12 @@ async def detect_objects(data: ImageData) -> Response:
 
     list_encoded_image = np.frombuffer(image_bytes, dtype=np.uint8).tolist()
 
-    try:
-        client = Client(MODEL_API_URL)
-        result = client.predict(
-            json.dumps(list_encoded_image),
-            api_name="/predict",
-        )
+    client = Client("https://gastonamengual-object-detection-app.hf.space/")
+    result = client.predict(
+        json.dumps(list_encoded_image),
+        api_name="/predict",
+    )
 
-        bytes_image = bytes(json.loads(result))
-        response = Response(content=bytes_image, media_type="image/png")
-        return response
-    except Exception as ex:
-        raise ValueError(f"M2FastAPI Error: {ex}")
+    bytes_image = bytes(json.loads(result))
+    response = Response(content=bytes_image, media_type="image/png")
+    return response
