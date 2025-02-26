@@ -10,7 +10,7 @@ class UserNotExists(Exception):
 
 
 @dataclass
-class TokenPayloadIncorrect(Exception):
+class UserBlank(Exception):
     status_code: int = status.HTTP_422_UNPROCESSABLE_ENTITY
     message: str = "You must provide a {'username': 'username'} json"
 
@@ -19,3 +19,9 @@ class TokenPayloadIncorrect(Exception):
 class TokenNotDecoded(Exception):
     status_code: int = status.HTTP_401_UNAUTHORIZED
     message: str = "Authentication failed: could not decode JWT token correctly"
+
+
+@dataclass
+class HuggingFaceException(Exception):
+    status_code: int = status.HTTP_500_INTERNAL_SERVER_ERROR
+    message: str = ""

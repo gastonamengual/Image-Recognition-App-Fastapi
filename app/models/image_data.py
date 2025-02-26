@@ -28,7 +28,3 @@ class ImageData(BaseModel):
     def list_encoded_image(self) -> list:
         image_bytes_decoded = base64.b64decode(self.image_bytes)
         return np.frombuffer(image_bytes_decoded, dtype=np.uint8).tolist()
-
-
-class TokenRequest(BaseModel):
-    username: str

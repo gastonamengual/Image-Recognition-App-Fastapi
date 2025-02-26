@@ -1,11 +1,10 @@
 from fastapi import Depends, FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.auth.auth import get_current_user, get_token
-from app.auth.model import User
-from app.exceptions.exception_handlers import ERROR_TO_HANDLER_MAPPING
-from app.model_interfaces import ModelInterface, model_interfaces
-from app.request_models.models import ImageData, TokenRequest
+from app.ai_model_interfaces import ModelInterface, ai_model_interfaces
+from app.auth.auth import TokenGenerator
+from app.exceptions import ERROR_TO_HANDLER_MAPPING
+from app.models import ImageData, User
 
 interface_name = "HuggingFace"
 
@@ -27,15 +26,18 @@ async def root():
 
 
 @app.post("/generate_token")
-async def generate_token(username: TokenRequest):
-    access_token = get_token(username.username)
-    return {"token": access_token, "type": "BEARER"}
+async def generate_token(user: User):
+    print(user)
+    token_generator = TokenGenerator(user)
+    token = token_generator.get_token()
+    return {"token": token, "type": "BEARER"}
 
 
 @app.post("/detect_objects")
 async def detect_objects(
-    image_data: ImageData, current_user: User = Depends(get_current_user)
+    image_data: ImageData,
+    current_user: User = Depends(TokenGenerator().get_user_from_token),
 ) -> Response:
-    model_interface = model_interfaces[ModelInterface[interface_name]]
+    model_interface = ai_model_interfaces[ModelInterface[interface_name]]
     response = model_interface().predict(image_data=image_data)
     return response

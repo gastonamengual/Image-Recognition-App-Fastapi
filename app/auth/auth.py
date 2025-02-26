@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
 import jwt
@@ -6,15 +7,10 @@ from fastapi.security import OAuth2PasswordBearer
 
 from app.exceptions.exceptions import (
     TokenNotDecoded,
-    TokenPayloadIncorrect,
     UserNotExists,
 )
 
-from .model import User
-
-SECRET_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+from ..models import User
 
 DATABASE = ["gaston", "ezepiola"]
 
@@ -26,29 +22,34 @@ def validate_user_exists(user: User):
         raise UserNotExists
 
 
-def get_token(
-    username: str,
-    expires_delta: timedelta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
-):
-    user = User(username=username)
-    validate_user_exists(user)
-    data = {"username": username}
-    if not data["username"]:
-        raise TokenPayloadIncorrect
+@dataclass
+class TokenGenerator:
+    user: User = None
+    expiration_minutes: int = 30
+    key: str = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"  # TODO save secret
+    algorithm: str = "HS256"  # TODO save secret
 
-    expire = datetime.now(timezone.utc) + expires_delta
-    data["exp"] = expire
-    token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-    return token
+    @property
+    def expire_data(self):
+        return datetime.now(timezone.utc) + timedelta(minutes=self.expiration_minutes)
 
+    def get_token(self):
+        if not self.user:
+            raise ValueError("user cannot be empty")
 
-def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-    except Exception:
-        raise TokenNotDecoded
+        validate_user_exists(self.user)
 
-    user = User(username=payload.get("username"))
-    validate_user_exists(user)
-    validate_user_exists(user)
-    return user
+        payload = {"username": self.user.username, "exp": self.expire_data}
+
+        token = jwt.encode(payload=payload, key=self.key, algorithm=self.algorithm)
+        return token
+
+    def get_user_from_token(self, token: str = Depends(oauth2_scheme)) -> User:
+        try:
+            payload = jwt.decode(token, self.key, algorithms=[self.algorithm])
+        except Exception:
+            raise TokenNotDecoded
+
+        user = User(username=payload.get("username"))
+        validate_user_exists(user)
+        return user
