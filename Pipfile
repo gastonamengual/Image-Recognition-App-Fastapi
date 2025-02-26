@@ -9,6 +9,7 @@ uvicorn = "==0.34.0"
 numpy = "==1.26.4"
 gradio-client = "==1.5.0"
 python-multipart = "==0.0.18"
+pyjwt = "==2.10.1"
 
 [dev-packages]
 pytest = "==8.3.4"
