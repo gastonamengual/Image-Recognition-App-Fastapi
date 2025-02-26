@@ -4,7 +4,11 @@ import jwt
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 
-from app.auth.exceptions import TokenNotDecoded, TokenPayloadIncorrect, UserNotExists
+from app.exceptions.exceptions import (
+    TokenNotDecoded,
+    TokenPayloadIncorrect,
+    UserNotExists,
+)
 
 from .model import User
 

@@ -1,7 +1,11 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from app.auth.exceptions import TokenNotDecoded, TokenPayloadIncorrect, UserNotExists
+from app.exceptions.exceptions import (
+    TokenNotDecoded,
+    TokenPayloadIncorrect,
+    UserNotExists,
+)
 
 
 def user_not_exists_exception_handler(request: Request, exc: UserNotExists):
