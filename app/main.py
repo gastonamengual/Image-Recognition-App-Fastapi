@@ -1,12 +1,10 @@
 from fastapi import Depends, FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.ai_model_interfaces import ModelInterface, ai_model_interfaces
+from app.ai_model_interfaces import ModelInterface, get_ai_model_interface
 from app.auth.auth import TokenGenerator
 from app.exceptions import ERROR_TO_HANDLER_MAPPING
 from app.models import ImageData, User
-
-interface_name = "HuggingFace"
 
 app = FastAPI()
 app.add_middleware(
@@ -37,7 +35,9 @@ async def detect_objects(
     image_data: ImageData,
     current_user: User = Depends(TokenGenerator().get_user_from_token),
 ) -> Response:
-    model_interface = ai_model_interfaces[ModelInterface[interface_name]]
+    model_interface = get_ai_model_interface(
+        ModelInterface[image_data.ai_model_interface]
+    )
     image_response = model_interface().predict(image_data=image_data)
 
     return image_response.response

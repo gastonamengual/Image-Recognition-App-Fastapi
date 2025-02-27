@@ -10,6 +10,7 @@ ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
 class ImageData(BaseModel):
     filename: str
     image_bytes: bytes
+    ai_model_interface: str
 
     @model_validator(mode="after")
     def validate_filename(self) -> Self:
