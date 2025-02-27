@@ -1,12 +1,12 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from app.exceptions.exceptions import (
-    HuggingFaceException,
+from app.auth.exceptions import (
     TokenNotDecoded,
-    UserBlank,
     UserNotExists,
 )
+from app.model_services.hugging_face.errors import HuggingFaceException
+from app.models.errors import UserBlank
 
 
 def user_not_exists_exception_handler(request: Request, exc: UserNotExists):

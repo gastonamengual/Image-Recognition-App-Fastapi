@@ -1,6 +1,6 @@
 from pydantic import BaseModel, model_validator
 
-from app.exceptions.exceptions import UserBlank
+from app.models.errors import UserBlank
 
 
 class User(BaseModel):

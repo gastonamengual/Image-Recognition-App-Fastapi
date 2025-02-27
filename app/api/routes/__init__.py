@@ -1,14 +1,15 @@
-from app.exceptions.exception_handlers import (
+from app.auth.exceptions import (
+    TokenNotDecoded,
+    UserNotExists,
+)
+from app.model_services.hugging_face.errors import HuggingFaceException
+from app.models.errors import UserBlank
+
+from .exception_handlers import (
     hugging_face_api_exception_handler,
     token_not_decoded_exception_handler,
     user_blank_incorrect_exception_handler,
     user_not_exists_exception_handler,
-)
-from app.exceptions.exceptions import (
-    HuggingFaceException,
-    TokenNotDecoded,
-    UserBlank,
-    UserNotExists,
 )
 
 ERROR_TO_HANDLER_MAPPING = [

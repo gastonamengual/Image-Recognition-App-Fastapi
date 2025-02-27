@@ -3,14 +3,14 @@ from dataclasses import dataclass
 
 from gradio_client import Client
 
-from app.ai_model_interfaces.abstract_model_interface import AbstractModelInterface
-from app.exceptions.exceptions import HuggingFaceException
-from app.image_response.image_response import ImageResponse
+from app.model_services.abstract_model_service import AbstractModelService
+from app.model_services.hugging_face.errors import HuggingFaceException
 from app.models import ImageData
+from app.models.image_response import ImageResponse
 
 
 @dataclass
-class HuggingFaceInterface(AbstractModelInterface):
+class HuggingFaceInterface(AbstractModelService):
     model_api_url: str = (
         "https://gastonamengual-object-detection-app.hf.space/"  # TODO save as secret
     )

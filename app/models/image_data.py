@@ -1,26 +1,20 @@
 import base64
+from pathlib import Path
 from typing import Self
 
 import numpy as np
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, Field, model_validator
 
 ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
 
 
 class ImageData(BaseModel):
-    filename: str
+    filename: str = Field(min_length=1)
     image_bytes: bytes
-    ai_model_interface: str
 
     @model_validator(mode="after")
     def validate_filename(self) -> Self:
-        if self.filename == "":
-            raise ValueError("self.filename is empty")
-
-        if (
-            "." not in self.filename
-            or self.filename.rsplit(".", 1)[1].lower() not in ALLOWED_EXTENSIONS
-        ):
+        if Path(self.filename).suffix.lower() not in ALLOWED_EXTENSIONS:
             raise ValueError("Wrong filename format")
 
         return self
