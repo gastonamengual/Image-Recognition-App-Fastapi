@@ -25,8 +25,8 @@ async def root():
     return {"message": "access the /detect_objects endpoint"}
 
 
-@app.post("/generate_token")
-async def generate_token(user: User):
+@app.post("/token")
+async def token(user: User):
     token_generator = TokenGenerator(user)
     token = token_generator.get_token()
     return {"token": token, "type": "BEARER"}
