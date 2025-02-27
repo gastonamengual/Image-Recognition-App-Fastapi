@@ -27,7 +27,6 @@ async def root():
 
 @app.post("/generate_token")
 async def generate_token(user: User):
-    print(user)
     token_generator = TokenGenerator(user)
     token = token_generator.get_token()
     return {"token": token, "type": "BEARER"}
@@ -39,5 +38,6 @@ async def detect_objects(
     current_user: User = Depends(TokenGenerator().get_user_from_token),
 ) -> Response:
     model_interface = ai_model_interfaces[ModelInterface[interface_name]]
-    response = model_interface().predict(image_data=image_data)
-    return response
+    image_response = model_interface().predict(image_data=image_data)
+
+    return image_response.response
