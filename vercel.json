@@ -1,9 +1,9 @@
 {
     "version": 2,
-    "builds": [{ "src": "app/main.py", "use": "@vercel/python" }],
+    "builds": [{ "src": "app/__main__.py", "use": "@vercel/python" }],
     "routes": [
         { "src": "/(.*)",
-          "dest": "app/main.py",
+          "dest": "app/__main__.py",
           "headers": {
             "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Origin": "*",
