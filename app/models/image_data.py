@@ -6,7 +6,7 @@ import numpy as np
 from pydantic import BaseModel, Field, model_validator
 
 
-ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
+ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg"]
 
 
 class ImageData(BaseModel):
