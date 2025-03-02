@@ -27,7 +27,6 @@ class FirestoreConnector:
     def __post_init__(self):
         if not firebase_admin._apps:
             credentials = get_credentials()
-            print(credentials)
             cred = firebase_admin.credentials.Certificate(credentials)
             firebase_admin.initialize_app(cred)
 
