@@ -3,10 +3,10 @@ from dataclasses import dataclass
 
 from gradio_client import Client
 
-from app.model_services.abstract_model_service import AbstractModelService
-from app.model_services.hugging_face.errors import HuggingFaceException
-from app.models import ImageData
-from app.models.image_response import ImageResponse
+from gamr_backend_service.model_services.abstract_model_service import AbstractModelService
+from gamr_backend_service.model_services.hugging_face.errors import HuggingFaceException
+from gamr_backend_service.models import ImageData
+from gamr_backend_service.models.image_response import ImageResponse
 
 
 @dataclass

@@ -1,9 +1,9 @@
-from app.auth.exceptions import (
+from gamr_backend_service.auth.exceptions import (
     TokenNotDecoded,
     UserNotExists,
 )
-from app.model_services.hugging_face.errors import HuggingFaceException
-from app.models.errors import UserBlank
+from gamr_backend_service.model_services.hugging_face.errors import HuggingFaceException
+from gamr_backend_service.models.errors import UserBlank
 
 from .exception_handlers import (
     hugging_face_api_exception_handler,

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, model_validator
 
-from app.models.errors import UserBlank
+from gamr_backend_service.models.errors import UserBlank
 
 
 class User(BaseModel):

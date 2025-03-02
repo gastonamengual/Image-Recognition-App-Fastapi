@@ -6,7 +6,6 @@ class Settings_(BaseSettings):
         case_sensitive=False,
         env_file=".env",
         env_file_encoding="utf-8",
-        secrets_dir="secrets",
         extra="ignore",
     )
 

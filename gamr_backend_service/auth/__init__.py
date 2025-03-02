@@ -1,4 +1,4 @@
-from app.models.errors import UserBlank
+from gamr_backend_service.models.errors import UserBlank
 
 from .exceptions import TokenNotDecoded, UserNotExists
 from .token import TokenGenerator

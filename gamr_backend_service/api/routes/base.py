@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, Response
 
-from app.auth.token import TokenGenerator
-from app.data.user_manager import UserManager
-from app.model_services import ModelService, get_ai_model_interface
-from app.models import ImageData, User
+from gamr_backend_service.auth.token import TokenGenerator
+from gamr_backend_service.data.user_manager import UserManager
+from gamr_backend_service.model_services import ModelService, get_ai_model_interface
+from gamr_backend_service.models import ImageData, User
 
 router = APIRouter()
 

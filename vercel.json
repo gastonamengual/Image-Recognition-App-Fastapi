@@ -1,9 +1,9 @@
 {
     "version": 2,
-    "builds": [{ "src": "app/__main__.py", "use": "@vercel/python" }],
+    "builds": [{ "src": "gamr_backend_service/__main__.py", "use": "@vercel/python" }],
     "routes": [
         { "src": "/(.*)",
-          "dest": "app/__main__.py",
+          "dest": "gamr_backend_service/__main__.py",
           "headers": {
             "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Origin": "*",
