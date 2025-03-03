@@ -10,7 +10,7 @@ df = dparse.parse(content, file_type=dparse.filetypes.pipfile)
 required = [
     dependency.line
     for dependency in df.dependencies
-    if dependency.sections[0] == "packages"
+    if dependency.section == "packages"
 ]
 
 setup(
