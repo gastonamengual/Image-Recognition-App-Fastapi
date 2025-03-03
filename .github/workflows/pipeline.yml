@@ -25,6 +25,18 @@ jobs:
       with:
         python-version: 3.12.9
 
+    - name: Extract version from __init__.py
+      run: |
+        VERSION=$(grep '__version__' gamr_backend_api_service/__init__.py | sed -E 's/__version__ = \"([^\"]+)\"/\1/')
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Check if version exists on PyPI
+      run: |
+        if pip index versions gamr-backend-api-service | grep -q "$VERSION"; then
+          echo "Version $VERSION already exists on PyPI. Update the version."
+          exit 1
+        fi
+
     - name: Install pipenv
       run: pip install pipenv
 
@@ -48,33 +60,37 @@ jobs:
         files: |
           pytest-report.xml
 
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
 
-  #   if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
 
-  #   permissions:
-  #     contents: read
-  #     pages: write
-  #     id-token: write
+    permissions:
+      contents: read
+      id-token: write
 
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - uses: actions/checkout@v4
 
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+    - name: Set up Python 3.12.9
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12.9
 
-  #     - name: Setup Pages
-  #       uses: actions/configure-pages@v5
+    - name: Install pipenv
+      run: pip install pipenv
 
-  #     - name: Upload artifact
-  #       uses: actions/upload-pages-artifact@v3
-  #       with:
-  #         path: '.'
+    - name: Install dependencies
+      run: pipenv install --dev
+      env:
+        PIPENV_VENV_IN_PROJECT: 1
 
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4
+    - name: Build
+      run: pipenv run build
+
+    - name: Publish
+      env:
+        PYPI_USERNAME: __token__
+        PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: pipenv run publish
