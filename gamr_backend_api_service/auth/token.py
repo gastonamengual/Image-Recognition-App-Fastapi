@@ -5,10 +5,10 @@ import jwt
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 
-from gamr_backend_service.auth.exceptions import (
+from gamr_backend_api_service.auth.exceptions import (
     TokenNotDecoded,
 )
-from gamr_backend_service.models.user import User
+from gamr_backend_api_service.models.user import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="generate_token")
 

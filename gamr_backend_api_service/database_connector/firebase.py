@@ -3,8 +3,8 @@ from dataclasses import dataclass
 import firebase_admin
 from firebase_admin import firestore
 
-from gamr_backend_service.models.user import User
-from gamr_backend_service.settings import Settings
+from gamr_backend_api_service.models.user import User
+from gamr_backend_api_service.settings import Settings
 
 def get_credentials() -> dict[str, str]:
     CREDENTIALS_DICT = {

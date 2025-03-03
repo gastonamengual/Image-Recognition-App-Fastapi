@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from gamr_backend_service.api.routes import ERROR_TO_HANDLER_MAPPING
-from gamr_backend_service.api.routes.base import router
+from gamr_backend_api_service.api.routes import ERROR_TO_HANDLER_MAPPING
+from gamr_backend_api_service.api.routes.base import router
 
 
 def create_app():

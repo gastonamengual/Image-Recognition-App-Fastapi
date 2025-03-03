@@ -1,6 +1,6 @@
 # import pytest
 
-# from gamr_backend_service.validations.validations import validate_filename
+# from gamr_backend_api_service.validations.validations import validate_filename
 
 
 # def test_incorrect_extension():

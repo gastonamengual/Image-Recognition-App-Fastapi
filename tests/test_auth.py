@@ -3,7 +3,7 @@
 # import jwt
 # import pytest
 
-# from gamr_backend_service.auth.auth import ALGORITHM, SECRET_KEY, generate_token, get_current_user
+# from gamr_backend_api_service.auth.auth import ALGORITHM, SECRET_KEY, generate_token, get_current_user
 
 
 # @pytest.fixture

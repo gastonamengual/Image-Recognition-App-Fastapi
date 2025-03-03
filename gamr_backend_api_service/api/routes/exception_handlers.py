@@ -1,12 +1,12 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from gamr_backend_service.auth.exceptions import (
+from gamr_backend_api_service.auth.exceptions import (
     TokenNotDecoded,
     UserNotExists,
 )
-from gamr_backend_service.model_services.hugging_face.errors import HuggingFaceException
-from gamr_backend_service.models.errors import UserBlank
+from gamr_backend_api_service.model_services.hugging_face.errors import HuggingFaceException
+from gamr_backend_api_service.models.errors import UserBlank
 
 
 def user_not_exists_exception_handler(request: Request, exc: UserNotExists):
