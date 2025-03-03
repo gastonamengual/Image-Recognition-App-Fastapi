@@ -6,6 +6,7 @@ from firebase_admin import firestore
 from gamr_backend_api_service.models.user import User
 from gamr_backend_api_service.settings import Settings
 
+
 def get_credentials() -> dict[str, str]:
     CREDENTIALS_DICT = {
         "type": "service_account",
@@ -21,6 +22,7 @@ def get_credentials() -> dict[str, str]:
         "universe_domain": "googleapis.com",
     }
     return CREDENTIALS_DICT
+
 
 @dataclass
 class FirestoreConnector:

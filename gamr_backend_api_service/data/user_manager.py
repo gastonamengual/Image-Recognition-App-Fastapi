@@ -3,7 +3,10 @@ from dataclasses import dataclass, field
 from gamr_backend_api_service.auth.exceptions import (
     UserNotExists,
 )
-from gamr_backend_api_service.database_connector import AbstractDatabaseConnector, FirestoreConnector
+from gamr_backend_api_service.database_connector import (
+    AbstractDatabaseConnector,
+    FirestoreConnector,
+)
 from gamr_backend_api_service.models.user import User
 
 
