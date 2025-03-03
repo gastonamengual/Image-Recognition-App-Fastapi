@@ -27,9 +27,7 @@ async def detect_objects(
 ) -> Response:
     user_manager = UserManager()
     user_manager.validate_user_exists(current_user)
-    model_interface = get_ai_model_interface(
-        ModelService[image_data.model_service]
-    )
+    model_interface = get_ai_model_interface(ModelService[image_data.model_service])
     image_response = model_interface().predict(image_data=image_data)  # type: ignore
 
     return image_response.response

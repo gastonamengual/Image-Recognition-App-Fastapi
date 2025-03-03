@@ -1,6 +1,7 @@
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 class Settings_(BaseSettings):
     model_config = SettingsConfigDict(
         case_sensitive=False,
@@ -14,5 +15,6 @@ class Settings_(BaseSettings):
     PRIVATE_KEY: str = Field()
     CLIENT_EMAIL: str = Field()
     CLIENT_ID: str = Field()
+
 
 Settings = Settings_()
