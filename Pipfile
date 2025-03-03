@@ -12,6 +12,7 @@ python-multipart = "==0.0.18"
 pyjwt = "==2.10.1"
 firebase-admin = "==6.6.0"
 pydantic_settings = "*"
+setuptools = "*"
 
 [dev-packages]
 pytest = "==8.3.4"
@@ -21,8 +22,9 @@ black = "==25.1.0"
 pre-commit = "==4.1.0"
 ipykernel = "*"
 pillow = "==11.1.0"
-poetry = "==2.1.1"
-uv = "==0.6.3"
+dparse = "==0.6.3"
+twine = "==6.1.0"
+setuptools = "==75.8.2"
 
 [requires]
 python_version = "3.12.9"

@@ -5,4 +5,5 @@ gradio-client==1.5.0
 python-multipart==0.0.18
 pyjwt==2.10.1
 firebase-admin==6.6.0
-pydantic-settings
+pydantic_settings
+setuptools

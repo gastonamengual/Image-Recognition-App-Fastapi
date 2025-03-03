@@ -1,12 +1,12 @@
-name: Master CI/CD
+name: Main CI/CD
 
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
     types: [opened, synchronize]
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
 
     - name: Linter and style check
       run: |
-        pip install pre-commit==3.3.1
+        pip install pre-commit==4.1.0
         pre-commit run --all-file
 
     - name: Install dependencies
@@ -48,33 +48,33 @@ jobs:
         files: |
           pytest-report.xml
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    if: ${{ github.ref == 'refs/heads/master' }}
+  #   if: ${{ github.ref == 'refs/heads/main' }}
 
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+  #   permissions:
+  #     contents: read
+  #     pages: write
+  #     id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v5
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         path: '.'
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4

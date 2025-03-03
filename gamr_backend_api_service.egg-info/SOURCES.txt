@@ -1,5 +1,5 @@
 README.md
-pyproject.toml
+setup.py
 gamr_backend_api_service/__init__.py
 gamr_backend_api_service/__main__.py
 gamr_backend_api_service/settings.py
